@@ -4,9 +4,9 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #ffcc70, #ff9175, #fc6076, #ff9198); /* Colorful gradient background */
+  background: linear-gradient(135deg, #ffcc70, #ff9175, #fc6076, #ff9198);
   background-size: 400% 400%;
-  animation: gradientAnimation 10s ease infinite; /* Animate background */
+  animation: gradientAnimation 10s ease infinite;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -17,17 +17,17 @@ body {
 
 .container {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   max-width: 500px;
   width: 100%;
-  animation: fadeIn 2s ease-in-out; /* Container fade-in animation */
+  animation: fadeIn 2s ease-in-out;
 }
 
 h1 {
-  color: #FFD700; /* Gold color for the title */
+  color: #FFD700;
   margin-bottom: 20px;
 }
 
@@ -39,9 +39,9 @@ h1 {
   max-width: 100%;
   height: auto;
   border-radius: 5px;
-  border: 2px solid #FFD700; /* Gold border around the logo */
-  opacity: 0; /* Start hidden */
-  animation: logoReveal 1s ease-in-out forwards; /* Fade-in animation for the logo */
+  border: 2px solid #FFD700;
+  opacity: 0;
+  animation: logoReveal 1s ease-in-out forwards;
 }
 
 #questionArea {
@@ -66,23 +66,22 @@ button {
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #FFD700; /* Gold button */
+  background-color: #FFD700;
   border: none;
   border-radius: 5px;
   color: #000;
-  transition: background-color 0.3s ease; /* Smooth hover transition */
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #FFB700; /* Darker gold on hover */
+  background-color: #FFB700;
 }
 
 #statusMessage {
   margin-top: 20px;
-  color: #FFD700; /* Gold for status messages */
+  color: #FFD700;
 }
 
-/* Animations */
 @keyframes logoReveal {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -94,7 +93,7 @@ button:hover {
 }
 
 .shake {
-  animation: shake 0.5s; /* Shake animation for incorrect answers */
+  animation: shake 0.5s;
 }
 
 @keyframes shake {
