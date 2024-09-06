@@ -33,12 +33,6 @@ let timerInterval;
 let startTime;
 
 window.onload = function () {
-  const teamName = localStorage.getItem('teamName');
-
-  if (!teamName) {
-    window.location.href = 'index.html';
-  }
-
   loadNextQuestion();
   startTimer();
 };
@@ -85,58 +79,9 @@ function submitAnswer(selectedIndex) {
   }
 }
 
-// End the game and save the score to Firebase
-async function endGame() {
+// End the game
+function endGame() {
   clearInterval(timerInterval);
   const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-  const teamName = localStorage.getItem('teamName');
-  
-  // Save to Firebase Firestore
-  await addDoc(collection(db, "leaderboard"), {
-    teamName: teamName,
-    time: elapsedTime
-  });
-
-  showLeaderboard();
-}
-
-// Show the leaderboard from Firebase
-async function showLeaderboard() {
-  document.getElementById('leaderboard').style.display = 'block';
-  const leaderboardList = document.getElementById('leaderboardList');
-  leaderboardList.innerHTML = '';
-
-  // Get leaderboard data from Firebase Firestore
-  const querySnapshot = await getDocs(query(collection(db, 'leaderboard'), orderBy('time', 'asc')));
-  querySnapshot.forEach((doc, index) => {
-    const data = doc.data();
-    const listItem = document.createElement('li');
-    listItem.textContent = `${index + 1}. ${data.teamName} - ${data.time} ثواني`;
-    leaderboardList.appendChild(listItem);
-  });
-}
-
-// Function to clear the leaderboard (Admin only)
-async function clearLeaderboard() {
-  if (confirm("هل أنت متأكد أنك تريد مسح قائمة المتصدرين؟")) {
-    const querySnapshot = await getDocs(collection(db, 'leaderboard'));
-    querySnapshot.forEach((doc) => {
-      db.collection('leaderboard').doc(doc.id).delete();
-    });
-    document.getElementById('leaderboardList').innerHTML = ''; // Clear the display of the leaderboard
-    alert("تم مسح قائمة المتصدرين!");
-  }
-}
-
-// Function to show the clear leaderboard button for admin access
-function adminAccess() {
-  const adminPassword = prompt("أدخل كلمة المرور للمدير:");
-  
-  // Admin password set to 'elyas'
-  if (adminPassword === 'elyas') {
-    document.getElementById('clearBtn').style.display = 'block'; // Show clear leaderboard button
-    alert("تم تفعيل الوصول إلى المدير.");
-  } else {
-    alert("كلمة مرور غير صحيحة!");
-  }
+  document.getElementById('timer').textContent = `الوقت الكلي: ${elapsedTime} ثواني`;
 }
