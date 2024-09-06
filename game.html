@@ -37,8 +37,28 @@
   <audio id="wrongSound" src="assets/wrong.mp3" preload="auto"></audio>
 
   <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBxLdVIcnIhsUZLuHUrELXPcQTTTUBxlmw",
+      authDomain: "logo-game-1234.firebaseapp.com",
+      projectId: "logo-game-1234",
+      storageBucket: "logo-game-1234.appspot.com",
+      messagingSenderId: "697749587716",
+      appId: "1:697749587716:web:332f766d036ce3160af251",
+      measurementId: "G-BBQM06P9P1"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
