@@ -17,8 +17,11 @@
     </div>
     <div id="questionArea">
       <p id="questionText">تحميل السؤال...</p>
-      <input type="text" id="answerInput" placeholder="أدخل إجابتك">
-      <button onclick="submitAnswer()">إرسال</button>
+      <div id="choices">
+        <button class="choice" onclick="submitAnswer(0)">اختيار ١</button>
+        <button class="choice" onclick="submitAnswer(1)">اختيار ٢</button>
+        <button class="choice" onclick="submitAnswer(2)">اختيار ٣</button>
+      </div>
     </div>
     <p id="statusMessage"></p>
   </div>
