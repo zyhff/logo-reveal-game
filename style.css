@@ -3,8 +3,11 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #ffcc70, #ff9175, #fc6076, #ff9198); /* Colorful gradient background */
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite; /* Animate background */
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,10 +17,18 @@ body {
 
 .container {
   text-align: center;
-  background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  width: 100%;
+  animation: fadeIn 2s ease-in-out; /* Container fade-in animation */
+}
+
+h1 {
+  color: #FFD700; /* Gold color for the title */
+  margin-bottom: 20px;
 }
 
 #logo {
@@ -28,9 +39,17 @@ body {
   max-width: 100%;
   height: auto;
   border-radius: 5px;
+  border: 2px solid #FFD700; /* Gold border around the logo */
+  opacity: 0; /* Start hidden */
+  animation: logoReveal 1s ease-in-out forwards; /* Fade-in animation for the logo */
 }
 
 #questionArea {
+  margin-bottom: 20px;
+}
+
+#questionText {
+  font-size: 18px;
   margin-bottom: 10px;
 }
 
@@ -39,15 +58,54 @@ body {
   font-size: 16px;
   width: 200px;
   margin-right: 10px;
+  border: 2px solid #FFD700;
+  border-radius: 5px;
 }
 
 button {
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
+  background-color: #FFD700; /* Gold button */
+  border: none;
+  border-radius: 5px;
+  color: #000;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+button:hover {
+  background-color: #FFB700; /* Darker gold on hover */
 }
 
 #statusMessage {
   margin-top: 20px;
-  color: red;
+  color: #FFD700; /* Gold for status messages */
+}
+
+/* Animations */
+@keyframes logoReveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.shake {
+  animation: shake 0.5s; /* Shake animation for incorrect answers */
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
