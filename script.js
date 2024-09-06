@@ -1,13 +1,15 @@
-// Questions and answers data
+// أسئلة وأجوبة
 const questions = [
-  { question: "What color is the sun?", answer: "yellow" },
-  { question: "What happens at dawn?", answer: "the sun rises" },
-  { question: "What color is the sky at sunrise?", answer: "orange" },
-  { question: "What is the shape of the sun?", answer: "circle" },
-  // Add more questions as needed
+  { question: "ما هو رمز الشمس في الشعار؟", answer: "الشمس" },
+  { question: "ما هو معنى الأشخاص المتضافرين في الشعار؟", answer: "العمل الجماعي" },
+  { question: "ما هي الألوان الأساسية المستخدمة في الشعار؟", answer: "السمّاوي والبرتقالي" },
+  { question: "متى يتم استخدام الألوان الرمادية في الشعار؟", answer: "التعزية" },
+  { question: "ما هو نوع الخط العربي المستخدم في الشعار؟", answer: "خط بسيط" },
+  { question: "ماذا يرمز اللون البرتقالي في الشعار؟", answer: "شروق الشمس" },
+  { question: "ماذا يرمز اللون السمّاوي في الشعار؟", answer: "السلام" },
 ];
 
-// Image versions for the reveal
+// صور الشعار للكشف التدريجي
 const logoImages = [
   "assets/logo_blurred.png",
   "assets/logo_partial1.png",
@@ -19,43 +21,41 @@ const logoImages = [
 let currentQuestionIndex = 0;
 let currentImageIndex = 0;
 
-// Initialize game
+// تحميل اللعبة
 window.onload = function () {
   loadNextQuestion();
 };
 
-// Load the next question
+// تحميل السؤال التالي
 function loadNextQuestion() {
   if (currentQuestionIndex < questions.length) {
     document.getElementById("questionText").textContent = questions[currentQuestionIndex].question;
   } else {
-    document.getElementById("questionText").textContent = "You've revealed the full logo!";
+    document.getElementById("questionText").textContent = "تم كشف الشعار بالكامل!";
     document.getElementById("answerInput").disabled = true;
-    document.getElementById("statusMessage").textContent = "Congrats!";
+    document.getElementById("statusMessage").textContent = "مبروك!";
   }
 }
 
-// Check if the submitted answer is correct
+// التحقق من الإجابة
 function submitAnswer() {
   const userAnswer = document.getElementById("answerInput").value.toLowerCase();
   
   if (userAnswer === questions[currentQuestionIndex].answer.toLowerCase()) {
-    // Correct answer, reveal part of the logo
     currentImageIndex++;
     if (currentImageIndex < logoImages.length) {
       document.getElementById("logoImage").src = logoImages[currentImageIndex];
-      document.getElementById("logoImage").style.animation = "logoReveal 1s ease-in-out forwards"; // Add fade-in animation
+      document.getElementById("logoImage").style.animation = "logoReveal 1s ease-in-out forwards";
     }
     currentQuestionIndex++;
-    document.getElementById("answerInput").value = ""; // Clear input
-    document.getElementById("statusMessage").textContent = "Correct! Revealing part of the logo...";
+    document.getElementById("answerInput").value = "";
+    document.getElementById("statusMessage").textContent = "إجابة صحيحة! يتم كشف جزء من الشعار...";
     loadNextQuestion();
   } else {
-    // Incorrect answer, trigger shake animation
     document.getElementById("answerInput").classList.add("shake");
-    document.getElementById("statusMessage").textContent = "Incorrect. Try again!";
+    document.getElementById("statusMessage").textContent = "إجابة خاطئة. حاول مرة أخرى!";
     setTimeout(() => {
       document.getElementById("answerInput").classList.remove("shake");
-    }, 500); // Remove shake class after animation
+    }, 500);
   }
 }
