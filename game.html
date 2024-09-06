@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة كشف الشعار</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body dir="rtl">
+  <div class="container">
+    <h1>كشف شعار فريق "فجر"</h1>
+    <div id="logo">
+      <div class="logo-part" id="part1"><img src="assets/logo_partial1.png" alt="جزء من الشعار"></div>
+      <div class="logo-part" id="part2"><img src="assets/logo_partial2.png" alt="جزء من الشعار"></div>
+      <div class="logo-part" id="part3"><img src="assets/logo_partial3.png" alt="جزء من الشعار"></div>
+      <div class="logo-part" id="part4"><img src="assets/logo_partial4.png" alt="جزء من الشعار"></div>
+    </div>
+    <div id="questionArea">
+      <p id="questionText">تحميل السؤال...</p>
+      <div id="choices">
+        <button class="choice" onclick="submitAnswer(0)">اختيار ١</button>
+        <button class="choice" onclick="submitAnswer(1)">اختيار ٢</button>
+        <button class="choice" onclick="submitAnswer(2)">اختيار ٣</button>
+      </div>
+    </div>
+    <p id="timer">الوقت: 0 ثواني</p>
+    <p id="statusMessage"></p>
+    <div id="leaderboard" style="display:none;">
+      <h2>قائمة المتصدرين</h2>
+      <ul id="leaderboardList"></ul>
+      <button onclick="resetGame()">العب مرة أخرى</button>
+    </div>
+  </div>
+
+  <audio id="correctSound" src="assets/correct.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="assets/wrong.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
