@@ -87,11 +87,16 @@ function endGame() {
   document.getElementById('questionArea').style.display = 'none';
   document.getElementById('timer').style.display = 'none'; 
   
+  // Change the title to "كفو عليك"
+  const gameTitle = document.getElementById('gameTitle');
+  gameTitle.textContent = "كفو عليك";
+  gameTitle.style.color = "#FFD700"; // Gold color for "كفو عليك"
+  
   // Display summary
   const summary = `
     <h2>فلسفة الشعار</h2>
     <p>
-      الشمس وهي تشرق في األفق ترمز إلى "الفجر" كبداية يوم جديد وحياة جديدة مليئة بالطاقة و التفاؤل واألمل.
+      الشمس وهي تشرق في الأفق ترمز إلى "الفجر" كبداية يوم جديد وحياة جديدة مليئة بالطاقة و التفاؤل و الأمل.
       الأشخاص المترابطين يمثلون العمل الجماعي والتعاون بين أفراد الفريق التطوعي.
       اللون البرتقالي يرمز لشروق الشمس ودفء النهار، بينما اللون السماوي يرمز للسلام والنقاء الذي يظهر بعد انكشاف ظلمة الليل.
     </p>
