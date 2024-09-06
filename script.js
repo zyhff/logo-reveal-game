@@ -34,9 +34,17 @@ let startTime;
 
 window.onload = function () {
   const teamName = localStorage.getItem('teamName');
+  const hasPlayed = localStorage.getItem('hasPlayed'); // Check if the player has already completed the game
+
   if (!teamName) {
     window.location.href = 'index.html';
   }
+
+  if (hasPlayed) {
+    alert("لقد أكملت اللعبة بالفعل ولا يمكنك اللعب مرة أخرى!");
+    window.location.href = 'index.html'; // Redirect if they already played
+  }
+
   loadNextQuestion();
   startTimer();
 };
@@ -78,6 +86,7 @@ function submitAnswer(selectedIndex) {
     currentQuestionIndex++;
     loadNextQuestion();
   } else {
+    wrongSound.volume = 0.1; // Adjust the volume of wrong sound
     wrongSound.play();
   }
 }
@@ -92,6 +101,8 @@ function endGame() {
   leaderboard.push({ teamName, time: elapsedTime });
   leaderboard.sort((a, b) => a.time - b.time);
   localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+
+  localStorage.setItem('hasPlayed', true); // Set flag that the player has played the game
 
   showLeaderboard();
 }
