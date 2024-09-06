@@ -69,4 +69,48 @@ function loadNextQuestion() {
 // Check the answer
 function submitAnswer(selectedIndex) {
   const correctSound = document.getElementById('correctSound');
-  const wrongSound = document.get
+  const wrongSound = document.getElementById('wrongSound');
+  const currentQuestion = questions[currentQuestionIndex];
+
+  if (selectedIndex === currentQuestion.correct) {
+    correctSound.play();
+    logoParts[currentQuestionIndex].style.opacity = 1;
+    currentQuestionIndex++;
+    loadNextQuestion();
+  } else {
+    wrongSound.play();
+  }
+}
+
+// End the game
+function endGame() {
+  clearInterval(timerInterval);
+  const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+  const teamName = localStorage.getItem('teamName');
+  
+  const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+  leaderboard.push({ teamName, time: elapsedTime });
+  leaderboard.sort((a, b) => a.time - b.time);
+  localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+
+  showLeaderboard();
+}
+
+// Show the leaderboard
+function showLeaderboard() {
+  document.getElementById('leaderboard').style.display = 'block';
+  const leaderboardList = document.getElementById('leaderboardList');
+  leaderboardList.innerHTML = '';
+
+  const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+  leaderboard.forEach((entry, index) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${index + 1}. ${entry.teamName} - ${entry.time} ثواني`;
+    leaderboardList.appendChild(listItem);
+  });
+}
+
+// Reset the game
+function resetGame() {
+  window.location.href = 'index.html';
+}
