@@ -3,29 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لعبة كشف الشعار</title>
+  <title>مرحبا بفريق "فجر"</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body dir="rtl">
   <div class="container">
-    <h1>كشف شعار الفجر</h1>
-    <div id="logo">
-      <div class="logo-part" id="part1"><img src="assets/logo_partial1.png" alt="جزء من الشعار"></div>
-      <div class="logo-part" id="part2"><img src="assets/logo_partial2.png" alt="جزء من الشعار"></div>
-      <div class="logo-part" id="part3"><img src="assets/logo_partial3.png" alt="جزء من الشعار"></div>
-      <div class="logo-part" id="part4"><img src="assets/logo_partial4.png" alt="جزء من الشعار"></div>
-    </div>
-    <div id="questionArea">
-      <p id="questionText">تحميل السؤال...</p>
-      <div id="choices">
-        <button class="choice" onclick="submitAnswer(0)">اختيار ١</button>
-        <button class="choice" onclick="submitAnswer(1)">اختيار ٢</button>
-        <button class="choice" onclick="submitAnswer(2)">اختيار ٣</button>
-      </div>
-    </div>
-    <p id="statusMessage"></p>
+    <h1>مرحبا بكم في لعبة كشف شعار الفجر!</h1>
+    <p>حاول الإجابة على الأسئلة في أسرع وقت ممكن لكشف الشعار!</p>
+    <p>أدخل اسم الفريق لبدء اللعب:</p>
+    <input type="text" id="teamName" placeholder="اسم الفريق">
+    <button onclick="startGame()">ابدأ اللعبة</button>
   </div>
-  
-  <script src="script.js"></script>
+
+  <script>
+    function startGame() {
+      const teamName = document.getElementById('teamName').value;
+      if (teamName) {
+        localStorage.setItem('teamName', teamName); // Store team name
+        window.location.href = 'game.html'; // Redirect to game page
+      } else {
+        alert('يرجى إدخال اسم الفريق للبدء!');
+      }
+    }
+  </script>
 </body>
 </html>
