@@ -1,12 +1,3 @@
-// Define Firebase Firestore database
-let db;
-
-// Ensure Firebase is initialized and Firestore is set
-window.addEventListener('load', () => {
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
-  db = firebase.firestore();
-});
-
 const questions = [
   { 
     question: "ما هي المجموعة التي تعمل بدون مقابل من أجل خدمة المجتمع وتحقيق الأثر الإيجابي؟", 
