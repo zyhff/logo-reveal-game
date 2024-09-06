@@ -114,3 +114,25 @@ function showLeaderboard() {
 function resetGame() {
   window.location.href = 'index.html';
 }
+
+// Function to clear the leaderboard
+function clearLeaderboard() {
+  if (confirm("هل أنت متأكد أنك تريد مسح قائمة المتصدرين؟")) {
+    localStorage.removeItem('leaderboard'); // Clear leaderboard from localStorage
+    document.getElementById('leaderboardList').innerHTML = ''; // Clear the display of the leaderboard
+    alert("تم مسح قائمة المتصدرين!");
+  }
+}
+
+// Function to show the clear leaderboard button for admin access
+function adminAccess() {
+  const adminPassword = prompt("أدخل كلمة المرور للمدير:");
+  
+  // Admin password set to 'elyas'
+  if (adminPassword === 'elyas') {
+    document.getElementById('clearBtn').style.display = 'block'; // Show clear leaderboard button
+    alert("تم تفعيل الوصول إلى المدير.");
+  } else {
+    alert("كلمة مرور غير صحيحة!");
+  }
+}
