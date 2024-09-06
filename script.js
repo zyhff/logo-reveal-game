@@ -1,4 +1,3 @@
-// أسئلة وأجوبة متعددة الخيارات
 const questions = [
   { 
     question: "ما هي المجموعة التي تعمل بدون مقابل من أجل خدمة المجتمع وتحقيق الأثر الإيجابي؟", 
@@ -22,7 +21,6 @@ const questions = [
   },
 ];
 
-// عناصر الشعار المراد كشفها
 const logoParts = [
   document.getElementById("part1"),
   document.getElementById("part2"),
@@ -31,42 +29,44 @@ const logoParts = [
 ];
 
 let currentQuestionIndex = 0;
+let timerInterval;
+let startTime;
 
-// تحميل اللعبة
 window.onload = function () {
+  const teamName = localStorage.getItem('teamName');
+  if (!teamName) {
+    window.location.href = 'index.html';
+  }
   loadNextQuestion();
+  startTimer();
 };
 
-// تحميل السؤال التالي وعرض الخيارات
+// Start the timer
+function startTimer() {
+  startTime = Date.now();
+  timerInterval = setInterval(() => {
+    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById('timer').textContent = `الوقت: ${elapsedTime} ثواني`;
+  }, 1000);
+}
+
+// Load next question and show choices
 function loadNextQuestion() {
   if (currentQuestionIndex < questions.length) {
     const currentQuestion = questions[currentQuestionIndex];
-    document.getElementById("questionText").textContent = currentQuestion.question;
-    
-    const choicesButtons = document.querySelectorAll(".choice");
+    document.getElementById('questionText').textContent = currentQuestion.question;
+
+    const choicesButtons = document.querySelectorAll('.choice');
     choicesButtons.forEach((button, index) => {
       button.textContent = currentQuestion.answers[index];
     });
 
   } else {
-    document.getElementById("questionText").textContent = "تم كشف الشعار بالكامل!";
-    document.querySelectorAll(".choice").forEach(button => button.disabled = true); // Disable buttons
-    document.getElementById("statusMessage").textContent = "مبروك!";
+    endGame();
   }
 }
 
-// التحقق من الإجابة
+// Check the answer
 function submitAnswer(selectedIndex) {
-  const currentQuestion = questions[currentQuestionIndex];
-  
-  if (selectedIndex === currentQuestion.correct) {
-    // كشف جزء من الشعار
-    logoParts[currentQuestionIndex].style.opacity = 1;
-    
-    currentQuestionIndex++;
-    document.getElementById("statusMessage").textContent = "إجابة صحيحة! تم كشف جزء من الشعار...";
-    loadNextQuestion();
-  } else {
-    document.getElementById("statusMessage").textContent = "إجابة خاطئة. حاول مرة أخرى!";
-  }
-}
+  const correctSound = document.getElementById('correctSound');
+  const wrongSound = document.get
