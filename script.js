@@ -150,4 +150,9 @@ function adminAccess() {
   
   // Admin password set to 'elyas'
   if (adminPassword === 'elyas') {
-    document
+    document.getElementById('clearBtn').style.display = 'block'; // Show clear leaderboard button
+    alert("تم تفعيل الوصول إلى المدير.");
+  } else {
+    alert("كلمة مرور غير صحيحة!");
+  }
+}
