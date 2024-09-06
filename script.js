@@ -79,9 +79,23 @@ function submitAnswer(selectedIndex) {
   }
 }
 
-// End the game
+// End the game and display the logo summary
 function endGame() {
   clearInterval(timerInterval);
-  const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-  document.getElementById('timer').textContent = `الوقت الكلي: ${elapsedTime} ثواني`;
+  document.getElementById('questionArea').style.display = 'none'; // Hide question and buttons
+  document.getElementById('timer').style.display = 'none'; // Hide timer
+  document.getElementById('statusMessage').textContent = ''; // Clear status message
+
+  // Show the summary
+  const summary = `
+    <h2>ملخص الشعار</h2>
+    <p>
+      يمثل الشعار شروق الشمس "الفجر" كبداية ليوم جديد وحياة جديدة مليئة بالطاقة والتفاؤل. الأشخاص المتضافرين يمثلون العمل الجماعي والتعاون بين أفراد الفريق التطوعي. 
+      اللون البرتقالي يرمز لشروق الشمس ودفء النهار، بينما اللون السماوي يرمز للسلام والنقاء الذي يظهر بعد انكشاف ظلمة الليل.
+    </p>
+  `;
+  const container = document.querySelector('.container');
+  const summaryDiv = document.createElement('div');
+  summaryDiv.innerHTML = summary;
+  container.appendChild(summaryDiv); // Add summary to the page
 }
