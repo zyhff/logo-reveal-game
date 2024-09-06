@@ -32,16 +32,22 @@ h1 {
 }
 
 #logo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
   margin-bottom: 20px;
 }
 
-#logo img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-  border: 2px solid #FFD700;
+.logo-part {
+  width: 100%;
   opacity: 0;
-  animation: logoReveal 1s ease-in-out forwards;
+  transition: opacity 1s ease-in-out;
+}
+
+.logo-part img {
+  width: 100%; /* Make images fit their respective grid */
+  border-radius: 5px;
 }
 
 #questionArea {
@@ -65,46 +71,3 @@ h1 {
 button {
   padding: 10px;
   font-size: 16px;
-  cursor: pointer;
-  background-color: #FFD700;
-  border: none;
-  border-radius: 5px;
-  color: #000;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #FFB700;
-}
-
-#statusMessage {
-  margin-top: 20px;
-  color: #FFD700;
-}
-
-@keyframes logoReveal {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.shake {
-  animation: shake 0.5s;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-}
-
-@keyframes gradientAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
