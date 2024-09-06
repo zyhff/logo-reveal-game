@@ -44,12 +44,18 @@ function submitAnswer() {
     currentImageIndex++;
     if (currentImageIndex < logoImages.length) {
       document.getElementById("logoImage").src = logoImages[currentImageIndex];
+      document.getElementById("logoImage").style.animation = "logoReveal 1s ease-in-out forwards"; // Add fade-in animation
     }
     currentQuestionIndex++;
     document.getElementById("answerInput").value = ""; // Clear input
     document.getElementById("statusMessage").textContent = "Correct! Revealing part of the logo...";
     loadNextQuestion();
   } else {
+    // Incorrect answer, trigger shake animation
+    document.getElementById("answerInput").classList.add("shake");
     document.getElementById("statusMessage").textContent = "Incorrect. Try again!";
+    setTimeout(() => {
+      document.getElementById("answerInput").classList.remove("shake");
+    }, 500); // Remove shake class after animation
   }
 }
