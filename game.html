@@ -28,15 +28,17 @@
     <div id="leaderboard" style="display:none;">
       <h2>قائمة المتصدرين</h2>
       <ul id="leaderboardList"></ul>
-      <button onclick="resetGame()">العب مرة أخرى</button>
-      <button id="clearBtn" style="display:none;" onclick="clearLeaderboard()">مسح قائمة المتصدرين</button> <!-- Hidden Button -->
-      <button onclick="adminAccess()">دخول المدير</button> <!-- Admin Access Button -->
+      <button id="clearBtn" style="display:none;" onclick="clearLeaderboard()">مسح قائمة المتصدرين</button>
+      <button id="adminBtn" onclick="adminAccess()" style="opacity: 0.1;">مدير</button> <!-- Less Obvious Admin Button -->
     </div>
   </div>
 
   <audio id="correctSound" src="assets/correct.mp3" preload="auto"></audio>
-  <audio id="wrongSound" src="assets/wrong.mp3" preload="auto" volume="0.1"></audio> <!-- Lower volume -->
+  <audio id="wrongSound" src="assets/wrong.mp3" preload="auto"></audio>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
