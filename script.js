@@ -1,16 +1,11 @@
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+// Define Firebase Firestore database
+let db;
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+// Ensure Firebase is initialized and Firestore is set
+window.addEventListener('load', () => {
+  const firebaseApp = firebase.initializeApp(firebaseConfig);
+  db = firebase.firestore();
+});
 
 const questions = [
   { 
@@ -106,46 +101,43 @@ function submitAnswer(selectedIndex) {
 }
 
 // End the game and save the score to Firebase
-function endGame() {
+async function endGame() {
   clearInterval(timerInterval);
   const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
   const teamName = localStorage.getItem('teamName');
   
-  // Save to Firebase
-  db.collection('leaderboard').add({
+  // Save to Firebase Firestore
+  await addDoc(collection(db, "leaderboard"), {
     teamName: teamName,
     time: elapsedTime
-  })
-  .then(() => {
-    localStorage.setItem('hasPlayed', true); // Set flag that the player has played the game
-    showLeaderboard();
   });
+
+  localStorage.setItem('hasPlayed', true); // Prevent user from playing again
+  showLeaderboard();
 }
 
 // Show the leaderboard from Firebase
-function showLeaderboard() {
+async function showLeaderboard() {
   document.getElementById('leaderboard').style.display = 'block';
   const leaderboardList = document.getElementById('leaderboardList');
   leaderboardList.innerHTML = '';
 
-  // Get leaderboard data from Firebase
-  db.collection('leaderboard').orderBy('time', 'asc').get().then((snapshot) => {
-    snapshot.forEach((doc, index) => {
-      const data = doc.data();
-      const listItem = document.createElement('li');
-      listItem.textContent = `${index + 1}. ${data.teamName} - ${data.time} ثواني`;
-      leaderboardList.appendChild(listItem);
-    });
+  // Get leaderboard data from Firebase Firestore
+  const querySnapshot = await getDocs(query(collection(db, 'leaderboard'), orderBy('time', 'asc')));
+  querySnapshot.forEach((doc, index) => {
+    const data = doc.data();
+    const listItem = document.createElement('li');
+    listItem.textContent = `${index + 1}. ${data.teamName} - ${data.time} ثواني`;
+    leaderboardList.appendChild(listItem);
   });
 }
 
 // Function to clear the leaderboard (Admin only)
-function clearLeaderboard() {
+async function clearLeaderboard() {
   if (confirm("هل أنت متأكد أنك تريد مسح قائمة المتصدرين؟")) {
-    db.collection('leaderboard').get().then((snapshot) => {
-      snapshot.forEach((doc) => {
-        db.collection('leaderboard').doc(doc.id).delete();
-      });
+    const querySnapshot = await getDocs(collection(db, 'leaderboard'));
+    querySnapshot.forEach((doc) => {
+      db.collection('leaderboard').doc(doc.id).delete();
     });
     document.getElementById('leaderboardList').innerHTML = ''; // Clear the display of the leaderboard
     alert("تم مسح قائمة المتصدرين!");
@@ -158,9 +150,4 @@ function adminAccess() {
   
   // Admin password set to 'elyas'
   if (adminPassword === 'elyas') {
-    document.getElementById('clearBtn').style.display = 'block'; // Show clear leaderboard button
-    alert("تم تفعيل الوصول إلى المدير.");
-  } else {
-    alert("كلمة مرور غير صحيحة!");
-  }
-}
+    document
