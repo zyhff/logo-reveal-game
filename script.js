@@ -82,11 +82,12 @@ function submitAnswer(selectedIndex) {
 // End the game and display the logo summary
 function endGame() {
   clearInterval(timerInterval);
-  document.getElementById('questionArea').style.display = 'none'; // Hide question and buttons
-  document.getElementById('timer').style.display = 'none'; // Hide timer
-  document.getElementById('statusMessage').textContent = ''; // Clear status message
-
-  // Show the summary
+  
+  // Hide question, choices, and timer
+  document.getElementById('questionArea').style.display = 'none';
+  document.getElementById('timer').style.display = 'none'; 
+  
+  // Display summary
   const summary = `
     <h2>ملخص الشعار</h2>
     <p>
@@ -94,6 +95,8 @@ function endGame() {
       اللون البرتقالي يرمز لشروق الشمس ودفء النهار، بينما اللون السماوي يرمز للسلام والنقاء الذي يظهر بعد انكشاف ظلمة الليل.
     </p>
   `;
+  
+  // Append summary below the logo
   const container = document.querySelector('.container');
   const summaryDiv = document.createElement('div');
   summaryDiv.innerHTML = summary;
