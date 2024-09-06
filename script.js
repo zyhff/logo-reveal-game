@@ -9,17 +9,15 @@ const questions = [
   { question: "ماذا يرمز اللون السمّاوي في الشعار؟", answer: "السلام" },
 ];
 
-// صور الشعار للكشف التدريجي
-const logoImages = [
-  "assets/logo_blurred.png",
-  "assets/logo_partial1.png",
-  "assets/logo_partial2.png",
-  "assets/logo_partial3.png",
-  "assets/logo_full.png"
+// عناصر الشعار المراد كشفها
+const logoParts = [
+  document.getElementById("part1"),
+  document.getElementById("part2"),
+  document.getElementById("part3"),
+  document.getElementById("part4")
 ];
 
 let currentQuestionIndex = 0;
-let currentImageIndex = 0;
 
 // تحميل اللعبة
 window.onload = function () {
@@ -42,14 +40,12 @@ function submitAnswer() {
   const userAnswer = document.getElementById("answerInput").value.toLowerCase();
   
   if (userAnswer === questions[currentQuestionIndex].answer.toLowerCase()) {
-    currentImageIndex++;
-    if (currentImageIndex < logoImages.length) {
-      document.getElementById("logoImage").src = logoImages[currentImageIndex];
-      document.getElementById("logoImage").style.animation = "logoReveal 1s ease-in-out forwards";
-    }
+    // كشف جزء من الشعار
+    logoParts[currentQuestionIndex].style.opacity = 1;
+    
     currentQuestionIndex++;
     document.getElementById("answerInput").value = "";
-    document.getElementById("statusMessage").textContent = "إجابة صحيحة! يتم كشف جزء من الشعار...";
+    document.getElementById("statusMessage").textContent = "إجابة صحيحة! تم كشف جزء من الشعار...";
     loadNextQuestion();
   } else {
     document.getElementById("answerInput").classList.add("shake");
