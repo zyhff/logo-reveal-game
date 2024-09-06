@@ -34,15 +34,9 @@ let startTime;
 
 window.onload = function () {
   const teamName = localStorage.getItem('teamName');
-  const hasPlayed = localStorage.getItem('hasPlayed'); // Check if the player has already completed the game
 
   if (!teamName) {
     window.location.href = 'index.html';
-  }
-
-  if (hasPlayed) {
-    alert("لقد أكملت اللعبة بالفعل ولا يمكنك اللعب مرة أخرى!");
-    window.location.href = 'index.html'; // Redirect if they already played
   }
 
   loadNextQuestion();
@@ -103,7 +97,6 @@ async function endGame() {
     time: elapsedTime
   });
 
-  localStorage.setItem('hasPlayed', true); // Prevent user from playing again
   showLeaderboard();
 }
 
