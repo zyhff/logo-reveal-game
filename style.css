@@ -25,7 +25,7 @@ body {
 }
 
 h1#gameTitle {
-  color: #FFD700; /* Gold color for the title */
+  color: #FF4500; /* Changed title color to orange-red */
   margin-bottom: 20px;
 }
 
