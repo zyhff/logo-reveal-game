@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Reveal Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Reveal the Sunrise Logo</h1>
+    <div id="logo">
+      <img id="logoImage" src="assets/logo_blurred.png" alt="Logo">
+    </div>
+    <div id="questionArea">
+      <p id="questionText">Loading question...</p>
+      <input type="text" id="answerInput" placeholder="Enter your answer">
+      <button onclick="submitAnswer()">Submit</button>
+    </div>
+    <p id="statusMessage"></p>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
