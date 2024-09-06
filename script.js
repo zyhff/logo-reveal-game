@@ -1,3 +1,17 @@
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 const questions = [
   { 
     question: "ما هي المجموعة التي تعمل بدون مقابل من أجل خدمة المجتمع وتحقيق الأثر الإيجابي؟", 
@@ -91,45 +105,48 @@ function submitAnswer(selectedIndex) {
   }
 }
 
-// End the game
+// End the game and save the score to Firebase
 function endGame() {
   clearInterval(timerInterval);
   const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
   const teamName = localStorage.getItem('teamName');
   
-  const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-  leaderboard.push({ teamName, time: elapsedTime });
-  leaderboard.sort((a, b) => a.time - b.time);
-  localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-
-  localStorage.setItem('hasPlayed', true); // Set flag that the player has played the game
-
-  showLeaderboard();
+  // Save to Firebase
+  db.collection('leaderboard').add({
+    teamName: teamName,
+    time: elapsedTime
+  })
+  .then(() => {
+    localStorage.setItem('hasPlayed', true); // Set flag that the player has played the game
+    showLeaderboard();
+  });
 }
 
-// Show the leaderboard
+// Show the leaderboard from Firebase
 function showLeaderboard() {
   document.getElementById('leaderboard').style.display = 'block';
   const leaderboardList = document.getElementById('leaderboardList');
   leaderboardList.innerHTML = '';
 
-  const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-  leaderboard.forEach((entry, index) => {
-    const listItem = document.createElement('li');
-    listItem.textContent = `${index + 1}. ${entry.teamName} - ${entry.time} ثواني`;
-    leaderboardList.appendChild(listItem);
+  // Get leaderboard data from Firebase
+  db.collection('leaderboard').orderBy('time', 'asc').get().then((snapshot) => {
+    snapshot.forEach((doc, index) => {
+      const data = doc.data();
+      const listItem = document.createElement('li');
+      listItem.textContent = `${index + 1}. ${data.teamName} - ${data.time} ثواني`;
+      leaderboardList.appendChild(listItem);
+    });
   });
 }
 
-// Reset the game
-function resetGame() {
-  window.location.href = 'index.html';
-}
-
-// Function to clear the leaderboard
+// Function to clear the leaderboard (Admin only)
 function clearLeaderboard() {
   if (confirm("هل أنت متأكد أنك تريد مسح قائمة المتصدرين؟")) {
-    localStorage.removeItem('leaderboard'); // Clear leaderboard from localStorage
+    db.collection('leaderboard').get().then((snapshot) => {
+      snapshot.forEach((doc) => {
+        db.collection('leaderboard').doc(doc.id).delete();
+      });
+    });
     document.getElementById('leaderboardList').innerHTML = ''; // Clear the display of the leaderboard
     alert("تم مسح قائمة المتصدرين!");
   }
